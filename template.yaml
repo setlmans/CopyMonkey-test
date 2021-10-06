@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: post_request
+      AttributeDefinitions: 
+        - AttributeName: store
+          AttributeType: S
+        - AttributeName: unix_time
+          AttributeType: N
+      KeySchema: 
+        - AttributeName: store
+          KeyType: HASH
+        - AttributeName: unix_time
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+  PostdynamoDB:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_post.lambda_handler
+      Runtime: python3.8
+      CodeUri: lambda_post.py
+      Description: 'function for put messages from post request'
+      MemorySize: 128
+      Timeout: 5
+      Role: 'arn:aws:iam::776386116417:role/WRITE_DYNAMODB_MONKEY'
+      Events:
+        CreateAPI:
+          Type: HttpApi
+          Properties:
+            Path: /message
+            Method: POST
+  GetdynamoDB:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_get.lambda_handler
+      Runtime: python3.8
+      CodeUri: lambda_get.py
+      Description: 'function for get messages from dynamoDB'
+      MemorySize: 128
+      Timeout: 5
+      Role: 'arn:aws:iam::776386116417:role/WRITE_DYNAMODB_MONKEY'
+      Events:
+        CreateAPI:
+          Type: HttpApi
+          Properties:
+            Path: /messages
+            Method: GET
