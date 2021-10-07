@@ -47,4 +47,4 @@ Resources:
           Type: HttpApi
           Properties:
             Path: /messages
-            Method: GET
+            Method: ANY
