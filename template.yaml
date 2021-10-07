@@ -4,7 +4,7 @@ Resources:
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties: 
-      TableName: post_request
+      TableName: post_requests
       AttributeDefinitions: 
         - AttributeName: store
           AttributeType: S
@@ -22,10 +22,12 @@ Resources:
       Handler: lambda_post.lambda_handler
       Runtime: python3.8
       CodeUri: lambda_post.py
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - AWSLambdaBasicExecutionRole
       Description: 'function for put messages from post request'
       MemorySize: 128
       Timeout: 5
-      Role: 'arn:aws:iam::776386116417:role/WRITE_DYNAMODB_MONKEY'
       Events:
         CreateAPI:
           Type: HttpApi
@@ -41,7 +43,9 @@ Resources:
       Description: 'function for get messages from dynamoDB'
       MemorySize: 128
       Timeout: 5
-      Role: 'arn:aws:iam::776386116417:role/WRITE_DYNAMODB_MONKEY'
+      Policies:
+        - AmazonDynamoDBReadOnlyAccess
+        - AWSLambdaBasicExecutionRole
       Events:
         CreateAPI:
           Type: HttpApi
