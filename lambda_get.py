@@ -10,6 +10,6 @@ def lambda_handler(event, context):
         Limit=10,
         ScanIndexForward=False
     )
-    # print(type(response))
+    ### print(type(response))
     return response['Items']
 
