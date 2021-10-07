@@ -24,7 +24,7 @@ Resources:
       CodeUri: lambda_post.py
       Description: 'function for put messages from post request'
       MemorySize: 128
-      Timeout: 4
+      Timeout: 3
       Role: 'arn:aws:iam::776386116417:role/WRITE_DYNAMODB_MONKEY'
       Events:
         CreateAPI:
@@ -40,7 +40,7 @@ Resources:
       CodeUri: lambda_get.py
       Description: 'function for get messages from dynamoDB'
       MemorySize: 128
-      Timeout: 4
+      Timeout: 3
       Role: 'arn:aws:iam::776386116417:role/WRITE_DYNAMODB_MONKEY'
       Events:
         CreateAPI:
