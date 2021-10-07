@@ -1,2 +1,2 @@
 # monkey-test
-get/post requests to dynamodb AWS
+get/post requests to dynamodb AWS.
